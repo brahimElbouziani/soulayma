@@ -1,0 +1,315 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8edf2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.responsive-image {
+    width: 100%; /* Makes the image fill the container */
+    max-width: 400px; /* Maximum size of the image */
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Adds a shadow for a card-like appearance */
+    margin: 10px; /* Adds some space around the images */
+    border-radius: 10px; /* Optional: Rounds the corners for a card-like look */
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.responsive-image::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.1) 45%,
+        rgba(255,255,255,0.5) 50%,
+        rgba(255,255,255,0.1) 55%,
+        rgba(255,255,255,0) 100%
+    );
+    transform: rotate(0deg);
+    animation: shine 3s infinite;
+}
+
+.responsive-image:hover {
+    transform: 
+        perspective(1000px)
+        rotateY(10deg)
+        rotateX(5deg)
+        scale(1.08);
+    box-shadow: 
+        0 15px 30px rgba(0,0,0,0.2),
+        0 8px 20px rgba(0,0,0,0.1);
+}
+
+@keyframes shine {
+    0% {
+        top: -50%;
+        left: -50%;
+    }
+    100% {
+        top: 150%;
+        left: 150%;
+    }
+}
+
+@media (min-width: 600px) {
+    .container {
+        flex-direction: row; /* Images side by side for wider screens */
+    }
+
+    .responsive-image {
+        flex: 1; /* Allows images to grow and fill the space evenly */
+    }
+}
+ 
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 10px;
+    background: linear-gradient(90deg, 
+        rgba(209, 215, 40, 0.9) 0%,
+        rgba(186, 206, 50, 0.9) 25%,
+        rgba(122, 183, 67, 0.9) 50%,
+        rgba(74, 165, 71, 0.9) 75%,
+        rgba(13, 141, 69, 0.9) 100%
+    );
+    color: white; /* Making text white for better contrast */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 400; /* Inter's semi-bold weight for better legibility */
+    transition: background-color 0.3s, transform 0.2s;
+    border: none; /* Remove any existing border */
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.button::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.1);
+    transition: width 0.3s ease;
+}
+
+.button:hover::after {
+    width: 100%;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(13, 141, 69, 0.2);
+}
+
+.icon-placeholder, .fa {
+    margin-right: 8px; /* Adds some space between the icon and text */
+}
+
+/* Animation de chargement progressive */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.responsive-image, .button {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.responsive-image:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.button:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.button:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+/* Media Queries pour la réactivité */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px 10px;
+        gap: 15px;
+    }
+    
+    .button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Ajout du logo en arrière-plan */
+.background-logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    background: url('./agriedge_logo.png') center/contain no-repeat;
+    opacity: 0.03;
+    animation: rotateSlow 60s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Animation de rotation lente du logo */
+@keyframes rotateSlow {
+    0% { 
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+        opacity: 0.02;
+    }
+    50% { 
+        transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+        opacity: 0.04;
+    }
+    100% { 
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+        opacity: 0.02;
+    }
+}
+
+/* Animation des particules */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    background: linear-gradient(90deg, #D1D728, #0D8D45);
+    border-radius: 50%;
+    animation: float 20s infinite;
+    opacity: 0.1;
+    filter: blur(1px);
+    box-shadow: 0 0 15px rgba(209, 215, 40, 0.3);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-100px) translateX(100px) rotate(180deg);
+    }
+    100% {
+        transform: translateY(0) translateX(0) rotate(360deg);
+    }
+}
+
+/* Animation de pulse pour attirer l'attention */
+@keyframes pulse {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Effet de glassmorphisme amélioré */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(209, 215, 40, 0.05), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(13, 141, 69, 0.05), transparent 40%);
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* Animation de brillance initiale */
+@keyframes initialShine {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%) translateX(-100%) rotate(35deg);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100%) translateX(100%) rotate(35deg);
+    }
+}
+
+/* Ajout d'une brillance sur le conteneur */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.1) 45%,
+        rgba(255,255,255,0.5) 50%,
+        rgba(255,255,255,0.1) 55%,
+        rgba(255,255,255,0) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+    animation: initialShine 2s ease-in-out;
+}
